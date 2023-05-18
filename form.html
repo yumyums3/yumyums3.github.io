@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Job Application Form</title>
+  <style>
+
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  background-color: #f8f8f8;
+  margin: 0;
+  padding: 60px;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h2 {
+  margin-top: 0;
+  font-size: 24px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #333;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #0066cc;
+}
+
+.submit-button {
+  margin-top: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+table th,
+table td {
+  padding: 12px;
+  border: 1px solid #ccc;
+}
+
+table th {
+  font-weight: bold;
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+table td a {
+  text-decoration: none;
+  color: #0066cc;
+}
+
+table td a:hover {
+  text-decoration: underline;
+}
+
+.success-message {
+  color: #006600;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+</style>
+</head>
+<body>
+  <div class="application-form">
+    <h2>Job Application Form</h2>
+    <form id="jobApplicationForm">
+      <div class="form-group">
+        <label for="jobTitle">Job Title</label>
+        <input type="text" id="jobTitle" name="jobTitle" required>
+      </div>
+      <div class="form-group">
+        <label for="jobLocation">Job Location</label>
+        <input type="text" id="jobLocation" name="jobLocation" required>
+      </div>
+      <div class="form-group">
+        <label for="jobDescription">Job Description</label>
+        <textarea id="jobDescription" name="jobDescription" rows="5" required></textarea>
+      </div>
+      <div class="form-group">
+        <label for="fullName">Name</label>
+        <input type="text" id="fullName" name="fullName" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      <div class="form-group">
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" name="phone" required>
+      </div>
+      <div class="form-group">
+        <label for="resume">Resume</label>
+        <input type="file" id="resume" name="resume" required>
+      </div>
+      <div class="form-group">
+        <label for="coverLetter">Cover Letter</label>
+        <input type="file" id="coverLetter" name="coverLetter" required>
+      </div>
+      <div class="form-group">
+        <label for="education">Education</label>
+        <textarea id="education" name="education" rows="5" required></textarea>
+      </div>
+      <div class="form-group">
+        <label for="workExperience">Work Experience</label>
+        <textarea id="workExperience" name="workExperience" rows="5" required></textarea>
+      </div>
+      <div class="form-group">
+        <label for="skills">Skills</label>
+        <textarea id="skills" name="skills" rows="5" required></textarea>
+      </div>
+      <div class="form-group">
+        <label for="references">References</label>
+        <textarea id="references" name="references" rows="5" required></textarea>
+      </div>
+      <div class="submit-button">
+        <input type="submit" value="Submit">
+      </div>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("jobApplicationForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      // Get form data
+      var jobTitle = document.getElementById("jobTitle").value;
+      var jobLocation = document.getElementById("jobLocation").value;
+      var jobDescription = document.getElementById("jobDescription").value;
+      var fullName = document.getElementById("fullName").value;
+      var email = document.getElementById("email").value;
+      var phone = document.getElementById("phone").value;
+      var resume = document.getElementById("resume").files[0];
+      var coverLetter = document.getElementById("coverLetter").files[0];
+      var education = document.getElementById("education").value;
+      var workExperience = document.getElementById("workExperience").value;
+      var skills = document.getElementById("skills").value;
+      var references = document.getElementById("references").value;
+
+      // Create table and rows
+      var table = document.createElement("table");
+      var tbody = document.createElement("tbody");
+
+      // Insert rows with data
+      var rowData = [
+        ["Job Title", jobTitle],
+        ["Job Location", jobLocation],
+        ["Job Description", jobDescription],
+        ["Name", fullName],
+        ["Email Address", email],
+        ["Phone Number", phone],
+        ["Resume", `<a href="${URL.createObjectURL(resume)}" target="_blank">Download Resume</a>`],
+        ["Cover Letter", `<a href="${URL.createObjectURL(coverLetter)}" target="_blank">Download Cover Letter</a>`],
+        ["Education", education],
+        ["Work Experience", workExperience],
+        ["Skills", skills],
+        ["References", references]
+      ];
+
+      rowData.forEach(function(data) {
+        var row = document.createElement("tr");
+        var cell1 = document.createElement("td");
+        var cell2 = document.createElement("td");
+
+        cell1.textContent = data[0];
+        cell2.innerHTML = data[1];
+
+        row.appendChild(cell1);
+        row.appendChild(cell2);
+        tbody.appendChild(row);
+      });
+
+      table.appendChild(tbody);
+
+      // Open a new window to display the data
+      var newWindow = window.open("", "_blank");
+      newWindow.document.write("<html><head><title>Application Data</title></head><body>");
+      newWindow.document.write("<h2>Application Data</h2>");
+      newWindow.document.write(table.outerHTML);
+      newWindow.document.write("</body></html>");
+      newWindow.document.close();
+    });
+  </script>
+</body>
+</html>
